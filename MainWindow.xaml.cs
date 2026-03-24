@@ -19,6 +19,23 @@ namespace CRUD_App
         public MainWindow()
         {
             InitializeComponent();
+
+            List<Unit> myUnits = new List<Unit>();
+
+            myUnits.Add(new Unit {
+                Name = "Angron",
+                Points = 365,
+                Image = "/Angron.jpg"
+            });
+
+            myUnits.Add(new Unit {
+                Name = "Khorne Berzerkers",
+                Points = 180,
+                Image = "/Berzerkers.jpg"
+            });
+
+            UnitList.ItemsSource = myUnits;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
