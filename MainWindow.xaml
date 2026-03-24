@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CRUD_App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000" Background="#121212" WindowStartupLocation="CenterScreen">
+        Title="Warhammer 40k Army Maker" Height="800" Width="1000" Background="#121212" 
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>

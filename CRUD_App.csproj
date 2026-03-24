@@ -11,11 +11,15 @@
   <ItemGroup>
     <None Remove="Angron.jpg" />
     <None Remove="Berzerkers.jpg" />
+    <None Remove="Eightbound.jpg" />
+    <None Remove="Rhino.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Angron.jpg" />
     <Resource Include="Berzerkers.jpg" />
+    <Resource Include="Eightbound.jpg" />
+    <Resource Include="Rhino.jpg" />
   </ItemGroup>
 
 </Project>
