@@ -18,7 +18,7 @@ namespace CRUD_App
     public partial class MainWindow : Window
     {
         private readonly Dictionary<string, int> _categoryWeights = new Dictionary<string, int> {
-                {"Character", 1 },
+                {"Characters", 1 },
                 {"Battleline", 2 },
                 {"Dedicated Transport", 3 },
                 {"Other Datasheets", 4 },
@@ -32,17 +32,17 @@ namespace CRUD_App
             List<Unit> myUnits = new List<Unit>();
 
             myUnits.Add(new Unit {
+                Name = "Eightbound",
+                Points = 135,
+                Image = "/Eightbound.jpg",
+                Category = "Other Datasheets"
+            });
+
+            myUnits.Add(new Unit {
                 Name = "Angron",
                 Points = 365,
                 Image = "/Angron.jpg",
                 Category = "Characters"
-            });
-
-            myUnits.Add(new Unit {
-                Name = "Khorne Berzerkers",
-                Points = 180,
-                Image = "/Berzerkers.jpg",
-                Category = "Battleline"
             });
 
             myUnits.Add(new Unit {
@@ -53,18 +53,30 @@ namespace CRUD_App
             });
 
             myUnits.Add(new Unit {
-                Name = "Eightbound",
-                Points = 135,
-                Image = "/Eightbound.jpg",
-                Category = "Other Datasheets"
+                Name = "Khorne Berzerkers",
+                Points = 180,
+                Image = "/Berzerkers.jpg",
+                Category = "Battleline"
             });
+
 
             UnitList.ItemsSource = myUnits;
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(myUnits);
             
+            var view = (ListCollectionView)CollectionViewSource.GetDefaultView(myUnits);
 
+            view.GroupDescriptions.Clear();
+            view.SortDescriptions.Clear();
 
+            view.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
+
+            var categorySorter = new CategoryComparer(_categoryWeights);
+
+            view.CustomSort = categorySorter;
+
+            view.Refresh();
+
+            UnitList.ItemsSource = view;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
