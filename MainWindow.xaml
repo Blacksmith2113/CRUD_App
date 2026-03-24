@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CRUD_App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000" Background="#121212">
+        Title="MainWindow" Height="800" Width="1000" Background="#121212" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.1*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
@@ -17,13 +18,82 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Row="1" Grid.Column="0" Margin="10" 
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="Warhammer 40k Army Maker"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="30"
+                   FontWeight="Bold"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="List of Units"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="24"/>
+        
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Your Army"
+           Foreground="White"
+           VerticalAlignment="Center"
+           HorizontalAlignment="Center"
+           FontSize="24"/>
+        
+        <ListView Grid.Row="2" Grid.Column="0" Margin="10" 
                   Background="#1e1e1e" BorderThickness="1"
                   BorderBrush="#333333">
-            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" CornerRadius="8" Margin="5" Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="https://via.placeholder.com/60" 
+                                   Width="60" Height="100" Margin="0,0,15,0"/>
+                            
+                            <TextBlock Grid.Column="1"
+                                       Text="Unit Name"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Foreground="#222222"
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                <Button Content="+"
+                                        FontSize="24"
+                                        FontWeight="Bold"
+                                        Width="50"
+                                        Height="50"
+                                        Background="White"
+                                        BorderBrush="#CCCCCC"
+                                        BorderThickness="1"
+                                        Margin="0,0,0,5">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                
+                                <Border Grid.Column="2"
+                                    Background="#4A708B"
+                                    CornerRadius="4"
+                                    Padding="8,4"
+                                    VerticalAlignment="Center">
+                                    <TextBlock Text="500 pts"
+                                           Foreground="White"
+                                           FontWeight="Bold"/>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         
-        <Button Grid.Row="2" Grid.Column="1" Content="Close" 
+        <Button Grid.Row="3" Grid.Column="1" Content="Close" 
                 Height="60" Width="200" Background="#FFB300" 
                 Click="Button_Click"></Button>
     </Grid>
