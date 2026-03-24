@@ -16,6 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="5.3.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Angron.jpg" />
     <Resource Include="Berzerkers.jpg" />
     <Resource Include="Eightbound.jpg" />
