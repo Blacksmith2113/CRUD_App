@@ -82,5 +82,20 @@ namespace CRUD_App
         private void Button_Click(object sender, RoutedEventArgs e) {
             this.Close();
         }
+
+        private void ShowCharacters_Click(object sender, RoutedEventArgs e) {
+            CategoryView.Visibility = Visibility.Collapsed;
+            UnitSelectionView.Visibility = Visibility.Visible;
+        }
+
+        private void ShowBattleline_Click(object sender, RoutedEventArgs e) {
+            CategoryView.Visibility = Visibility.Collapsed;
+            UnitSelectionView.Visibility = Visibility.Visible;
+        }
+
+        private void BackToCategories_Click(object sender, RoutedEventArgs e) {
+            UnitSelectionView.Visibility = Visibility.Collapsed;
+            CategoryView.Visibility = Visibility.Visible;
+        }
     }
 }
