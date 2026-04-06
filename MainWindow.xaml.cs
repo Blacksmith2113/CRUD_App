@@ -79,10 +79,11 @@ namespace CRUD_App
 
             _myArmyUnits = new ObservableCollection<Unit>();
             _armyView = (ListCollectionView)CollectionViewSource.GetDefaultView(_myArmyUnits);
+            YourArmyList.ItemsSource = _myArmyUnits;
 
             _armyView.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
 
-            YourArmyList.ItemsSource = _armyView;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
@@ -143,6 +144,15 @@ namespace CRUD_App
                 _myArmyUnits.Add(selectedUnit);
                 _armyView.Refresh();
             }
+        }
+        private void OpenSelection_Click(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+            _selectedCategory = button.Tag.ToString(); // Pobieramy np. "Characters"
+
+            _view.Refresh(); // Filtrujemy listę wszystkich jednostek
+
+            YourArmyList.Visibility = Visibility.Collapsed;
+            UnitSelectionView.Visibility = Visibility.Visible;
         }
     }
 }
