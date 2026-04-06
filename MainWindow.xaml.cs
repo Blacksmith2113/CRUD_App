@@ -1,20 +1,11 @@
-﻿using System.ComponentModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRUD_App
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         private readonly Dictionary<string, int> _categoryWeights = new Dictionary<string, int> {
@@ -24,59 +15,74 @@ namespace CRUD_App
                 {"Other Datasheets", 4 },
                 {"Allied Units", 5 }
             };
+        private List<Unit> _allUnits;
+        private ListCollectionView _view;
+        private string _selectedCategory;
+        private ObservableCollection<Unit> _myArmyUnits;
+        private ListCollectionView _armyView;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            List<Unit> myUnits = new List<Unit>();
+            _allUnits= new List<Unit>();
 
-            myUnits.Add(new Unit {
+            _allUnits.Add(new Unit {
                 Name = "Eightbound",
                 Points = 135,
                 Image = "/Eightbound.jpg",
                 Category = "Other Datasheets"
             });
 
-            myUnits.Add(new Unit {
+            _allUnits.Add(new Unit {
                 Name = "Angron",
                 Points = 365,
                 Image = "/Angron.jpg",
                 Category = "Characters"
             });
 
-            myUnits.Add(new Unit {
+            _allUnits.Add(new Unit {
                 Name = "Chaos Rhino",
                 Points = 85,
                 Image = "/Rhino.jpg",
                 Category = "Dedicated Transport"
             });
 
-            myUnits.Add(new Unit {
+            _allUnits.Add(new Unit {
                 Name = "Khorne Berzerkers",
                 Points = 180,
                 Image = "/Berzerkers.jpg",
                 Category = "Battleline"
             });
 
-
-            UnitList.ItemsSource = myUnits;
-
             
-            var view = (ListCollectionView)CollectionViewSource.GetDefaultView(myUnits);
+            _view = (ListCollectionView)CollectionViewSource.GetDefaultView(_allUnits);
 
-            view.GroupDescriptions.Clear();
-            view.SortDescriptions.Clear();
+            _view.GroupDescriptions.Clear();
+            _view.SortDescriptions.Clear();
 
-            view.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
+            _view.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
 
             var categorySorter = new CategoryComparer(_categoryWeights);
 
-            view.CustomSort = categorySorter;
+            _view.CustomSort = categorySorter;
 
-            view.Refresh();
+            _view.Filter = (obj) => {
+                var unit = obj as Unit;
+                if (string.IsNullOrEmpty(_selectedCategory)) return true;
+                return unit?.Category == _selectedCategory;
+            };
 
-            UnitList.ItemsSource = view;
+            _view.Refresh();
+
+            UnitList.ItemsSource = _view;
+
+            _myArmyUnits = new ObservableCollection<Unit>();
+            _armyView = (ListCollectionView)CollectionViewSource.GetDefaultView(_myArmyUnits);
+
+            _armyView.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
+
+            YourArmyList.ItemsSource = _armyView;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
@@ -84,18 +90,59 @@ namespace CRUD_App
         }
 
         private void ShowCharacters_Click(object sender, RoutedEventArgs e) {
+            _selectedCategory = "Characters";
+
+            _view.Refresh();
+
+
+            BackButton.Visibility = Visibility.Visible;
             CategoryView.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Visible;
         }
 
         private void ShowBattleline_Click(object sender, RoutedEventArgs e) {
+            _selectedCategory = "Battleline";
+
+            _view.Refresh();
+
+            BackButton.Visibility = Visibility.Visible;
+            CategoryView.Visibility = Visibility.Collapsed;
+            UnitSelectionView.Visibility = Visibility.Visible;
+        }
+        private void ShowTransport_Click(object sender, RoutedEventArgs e) {
+            _selectedCategory = "Dedicated Transport";
+
+            _view.Refresh();
+
+            BackButton.Visibility = Visibility.Visible;
+            CategoryView.Visibility = Visibility.Collapsed;
+            UnitSelectionView.Visibility = Visibility.Visible;
+        }
+        private void ShowOther_Click(object sender, RoutedEventArgs e) {
+            _selectedCategory = "Other Datasheets";
+
+            _view.Refresh();
+
+            BackButton.Visibility = Visibility.Visible;
             CategoryView.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Visible;
         }
 
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
+            BackButton.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Collapsed;
             CategoryView.Visibility = Visibility.Visible;
+        }
+
+        private void AddUnit_Click(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+
+            var selectedUnit = button.DataContext as Unit;
+
+            if (selectedUnit != null) {
+                _myArmyUnits.Add(selectedUnit);
+                _armyView.Refresh();
+            }
         }
     }
 }

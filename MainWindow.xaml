@@ -7,6 +7,56 @@
         mc:Ignorable="d"
         Title="Warhammer 40k Army Maker" Height="800" Width="1000" Background="#121212" 
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="CategoryStyle" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Background" Value="#4A708B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="0,0,0,5" />
+            <Setter Property="Padding" Value="0,0,0,5" />
+        </Style>
+        <Style x:Key="BackButtonStyle"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="#4A708B" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="FontSize"
+                    Value="24" />
+            <Setter Property="Width"
+                    Value="50" />
+            <Setter Property="Height"
+                    Value="50" />
+            <Setter Property="Margin"
+                    Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="border"
+                                        Property="Background"
+                                        Value="#6291B0" />
+                                <Setter Property="Cursor"
+                                        Value="Hand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
@@ -15,11 +65,12 @@
             <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+        <TextBlock Grid.Row="0" Grid.Column="1"
                    Text="Warhammer 40k Army Maker"
                    Foreground="White"
                    VerticalAlignment="Center"
@@ -27,67 +78,101 @@
                    FontSize="30"
                    FontWeight="Bold"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="List of Units"
+        <!--<TextBlock Grid.Row="1" Grid.Column="0" Text="List of Units"
                    Foreground="White"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   FontSize="24"/>
+                   FontSize="24"/>-->
         
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Your Army"
+        <TextBlock Grid.Row="1" Grid.Column="1"
+           Text="Your Army"
            Foreground="White"
            VerticalAlignment="Center"
            HorizontalAlignment="Center"
            FontSize="24"/>
 
-        <Grid Grid.Row="2" Grid.Column="0" Margin="10">
+        <Button Grid.Column="0" Grid.Row="2" Name="BackButton" Visibility="Collapsed"
+                Style="{StaticResource BackButtonStyle}"
+                Content="←"
+                HorizontalAlignment="Right"
+                Click="BackToCategories_Click" />
 
+        <Grid Grid.Row="2" Grid.Column="1" Margin="10">
             <StackPanel x:Name="CategoryView" Visibility="Visible">
-                <TextBlock Text="Select Category" Foreground="#777777" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-
+                <!--CHARACTERS-->
                 <Border Background="#2a2a2a" CornerRadius="8" Margin="0,5" Padding="15">
                     <Grid>
                         <TextBlock Text="CHARACTERS" Foreground="White" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                        <Button HorizontalAlignment="Right" Width="40" Height="40" Content="+" 
-                        FontSize="20" Background="#4A708B" Foreground="White"
-                        Click="ShowCharacters_Click"/>
+                        <Button Style="{StaticResource CategoryStyle}"
+                                Click="ShowCharacters_Click"
+                                Height="40"
+                                VerticalAlignment="Top">
+                            <TextBlock Text="+" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Button>
                     </Grid>
                 </Border>
-
+                <!--BATTLELINE-->
                 <Border Background="#2a2a2a" CornerRadius="8" Margin="0,5" Padding="15">
                     <Grid>
                         <TextBlock Text="BATTLELINE" Foreground="White" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                        <Button HorizontalAlignment="Right" Width="40" Height="40" Content="+" 
-                        FontSize="20" Background="#4A708B" Foreground="White"
-                        Click="ShowBattleline_Click"/>
+                        <Button Style="{StaticResource CategoryStyle}"
+                                Click="ShowBattleline_Click">
+                            <TextBlock Text="+" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Button>
                     </Grid>
                 </Border>
+                <!--DEDICATED TRASNPORT-->
+                <Border Background="#2a2a2a" CornerRadius="8" Margin="0,5" Padding="15">
+                    <Grid>
+                        <TextBlock Text="DEDICATED TRANSPORT" Foreground="White" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <Button Style="{StaticResource CategoryStyle}"
+                                Click="ShowTransport_Click">
+                            <TextBlock Text="+"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Button>
+                    </Grid>
+                </Border>
+                <!--OTHER DATASHEETS-->
+                <Border Background="#2a2a2a" CornerRadius="8" Margin="0,5" Padding="15">
+                    <Grid>
+                        <TextBlock Text="OTHER DATASHEETS" Foreground="White" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <Button Style="{StaticResource CategoryStyle}"
+                                Click="ShowOther_Click">
+                            <TextBlock Text="+"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Button>
+                    </Grid>
+                </Border>
+                
             </StackPanel>
 
             <Grid x:Name="UnitSelectionView" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Content="← Back to Categories" 
-                HorizontalAlignment="Left" Margin="5" Background="Transparent" 
-                Foreground="#4A708B" BorderThickness="0" Click="BackToCategories_Click"/>
-
-                <ListView Grid.Row="2" Grid.Column="0" 
-          Name="UnitList"
-          Margin="10" 
-          Background="#1e1e1e" 
-          BorderThickness="1"
-          BorderBrush="#333333">
+                <ListView Grid.Column="1"
+                          Name="UnitList"
+                          Margin="10" 
+                          Background="#1e1e1e" 
+                          BorderThickness="1"
+                          BorderBrush="#333333">
                     <ListView.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Foreground="White"
-                               Margin="20,10,0,5" />
+                                               FontSize="18"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               Margin="20,10,0,5" />
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>
@@ -106,51 +191,50 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-
-                                    <Image Grid.Column="0" Source="{Binding Image}" 
-                           Width="60" Height="100" Margin="0,0,15,0"/>
-
+                                    <!--1st column-->
+                                    <Image Grid.Column="0" Source="{Binding Image}" Width="60" Height="100" Margin="0,0,15,0"/>
+                                    <!--2st column-->
                                     <TextBlock Grid.Column="1"
-                               Text="{Binding Name}"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Foreground="#222222"
-                               VerticalAlignment="Center"/>
+                                               Text="{Binding Name}"
+                                               FontSize="18"
+                                               FontWeight="Bold"
+                                               Foreground="#222222"
+                                               VerticalAlignment="Center"/>
+                                    <!--3rd column-->
                                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                         <Button FontSize="36"
-                                FontWeight="Bold"
-                                Width="50"
-                                Height="50"
-                                Background="White"
-                                BorderBrush="#CCCCCC"
-                                BorderThickness="1"
-                                Margin="0,0,0,5"
-                                Padding="0,0,0,5"
-                                VerticalContentAlignment="Center"
-                                HorizontalContentAlignment="Center">
+                                                FontWeight="Bold"
+                                                Width="50"
+                                                Height="50"
+                                                Background="White"
+                                                BorderBrush="#CCCCCC"
+                                                BorderThickness="1"
+                                                Margin="0,0,0,5"
+                                                Padding="0,0,0,5"
+                                                VerticalContentAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                                Click="AddUnit_Click">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"/>
                                                 </Style>
                                             </Button.Resources>
                                             <TextBlock Text="+"
-                                       FontSize="32"
-                                       FontWeight="Bold"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"/>
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
                                         </Button>
                                         <!--dodaje tło do punktów-->
                                         <Border Grid.Column="2"
-                            Background="#4A708B"
-                            CornerRadius="4"
-                            Padding="8,4"
-                            VerticalAlignment="Center">
+                                                Background="#4A708B"
+                                                CornerRadius="4"
+                                                Padding="8,4"
+                                                VerticalAlignment="Center">
                                             <!--Binding łączy dane z tym co zostanie wysłane w pliku cs, w tym przypadku z właściwością Points-->
                                             <!--StringFormat użyłem żeby dodać na końcu pkt, dodatkowy nawias potrzebny żeby działało poprawnie-->
                                             <TextBlock Text="{Binding Points, StringFormat='{}{0} pkt'}"
-                                   HorizontalAlignment="Center"
-                                   Foreground="White"
-                                   FontWeight="Bold"/>
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="White"
+                                                       FontWeight="Bold"/>
                                         </Border>
                                     </StackPanel>
                                 </Grid>
