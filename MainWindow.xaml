@@ -97,7 +97,9 @@
                 HorizontalAlignment="Right"
                 Click="BackToCategories_Click" />
 
-        <Grid Grid.Row="2" Grid.Column="1" Margin="10">
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+              Margin="10">
             <ListView x:Name="YourArmyList"
                       Background="Transparent"
                       BorderThickness="0">
@@ -222,7 +224,8 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Grid x:Name="UnitSelectionView" Visibility="Collapsed">
+            <Grid x:Name="UnitSelectionView"
+                  Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -230,8 +233,8 @@
 
                 <ListView Grid.Column="1"
                           Name="UnitList"
-                          Margin="10" 
-                          Background="#1e1e1e" 
+                          Margin="10"
+                          Background="#1e1e1e"
                           BorderThickness="1"
                           BorderBrush="#333333">
                     <ListView.GroupStyle>
@@ -249,29 +252,38 @@
                     </ListView.GroupStyle>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment"
+                                    Value="Stretch" />
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="White" CornerRadius="8" Margin="5" Padding="10">
+                            <Border Background="White"
+                                    CornerRadius="8"
+                                    Margin="5"
+                                    Padding="10">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <!--1st column-->
-                                    <Image Grid.Column="0" Source="{Binding Image}" Width="60" Height="100" Margin="0,0,15,0"/>
+                                    <Image Grid.Column="0"
+                                           Source="{Binding Image}"
+                                           Width="60"
+                                           Height="100"
+                                           Margin="0,0,15,0" />
                                     <!--2st column-->
                                     <TextBlock Grid.Column="1"
                                                Text="{Binding Name}"
                                                FontSize="18"
                                                FontWeight="Bold"
                                                Foreground="#222222"
-                                               VerticalAlignment="Center"/>
+                                               VerticalAlignment="Center" />
                                     <!--3rd column-->
-                                    <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                    <StackPanel Grid.Column="2"
+                                                VerticalAlignment="Center">
                                         <Button FontSize="36"
                                                 FontWeight="Bold"
                                                 Width="50"
@@ -286,12 +298,13 @@
                                                 Click="AddUnit_Click">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
-                                                    <Setter Property="CornerRadius" Value="5"/>
+                                                    <Setter Property="CornerRadius"
+                                                            Value="5" />
                                                 </Style>
                                             </Button.Resources>
                                             <TextBlock Text="+"
                                                        HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"/>
+                                                       VerticalAlignment="Center" />
                                         </Button>
                                         <!--dodaje tło do punktów-->
                                         <Border Grid.Column="2"
@@ -304,7 +317,7 @@
                                             <TextBlock Text="{Binding Points, StringFormat='{}{0} pkt'}"
                                                        HorizontalAlignment="Center"
                                                        Foreground="White"
-                                                       FontWeight="Bold"/>
+                                                       FontWeight="Bold" />
                                         </Border>
                                     </StackPanel>
                                 </Grid>
@@ -315,7 +328,6 @@
 
             </Grid>
         </Grid>
-
         <Button Grid.Row="3" Grid.Column="1" Content="Close" 
                 Height="60" Width="200" Background="#FFB300" 
                 Click="Button_Click"></Button>
