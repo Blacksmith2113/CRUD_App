@@ -78,6 +78,13 @@ namespace CRUD_App
             UnitList.ItemsSource = _view;
 
             _myArmyUnits = new ObservableCollection<Unit>();
+            foreach (var categoryName in _categoryWeights.Keys) {
+                _myArmyUnits.Add(new Unit {
+                    Category = categoryName,
+                    Name = null, // To jest kluczowe – po tym rozpoznamy "ducha"
+                    Points = 0
+                });
+            }
             _armyView = (ListCollectionView)CollectionViewSource.GetDefaultView(_myArmyUnits);
             YourArmyList.ItemsSource = _myArmyUnits;
 
@@ -97,7 +104,7 @@ namespace CRUD_App
 
 
             BackButton.Visibility = Visibility.Visible;
-            CategoryView.Visibility = Visibility.Collapsed;
+            //CategoryView.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Visible;
         }
 
@@ -107,7 +114,7 @@ namespace CRUD_App
             _view.Refresh();
 
             BackButton.Visibility = Visibility.Visible;
-            CategoryView.Visibility = Visibility.Collapsed;
+            //CategoryView.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Visible;
         }
         private void ShowTransport_Click(object sender, RoutedEventArgs e) {
@@ -116,7 +123,7 @@ namespace CRUD_App
             _view.Refresh();
 
             BackButton.Visibility = Visibility.Visible;
-            CategoryView.Visibility = Visibility.Collapsed;
+            //CategoryView.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Visible;
         }
         private void ShowOther_Click(object sender, RoutedEventArgs e) {
@@ -125,14 +132,14 @@ namespace CRUD_App
             _view.Refresh();
 
             BackButton.Visibility = Visibility.Visible;
-            CategoryView.Visibility = Visibility.Collapsed;
+            //CategoryView.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Visible;
         }
 
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
             BackButton.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Collapsed;
-            CategoryView.Visibility = Visibility.Visible;
+            YourArmyList.Visibility = Visibility.Visible; // Przywracamy listę armii
         }
 
         private void AddUnit_Click(object sender, RoutedEventArgs e) {
@@ -147,12 +154,20 @@ namespace CRUD_App
         }
         private void OpenSelection_Click(object sender, RoutedEventArgs e) {
             var button = sender as Button;
-            _selectedCategory = button.Tag.ToString(); // Pobieramy np. "Characters"
+            if (button?.Tag == null) return;
 
-            _view.Refresh(); // Filtrujemy listę wszystkich jednostek
+            // 1. Pobieramy kategorię z taga (np. "Characters")
+            _selectedCategory = button.Tag.ToString();
 
-            YourArmyList.Visibility = Visibility.Collapsed;
+            // 2. Odświeżamy widok wszystkich jednostek (zadziała filtr)
+            _view.Refresh();
+
+            // 3. Zarządzamy widocznością (to co robiły stare metody)
+            BackButton.Visibility = Visibility.Visible;
             UnitSelectionView.Visibility = Visibility.Visible;
+
+            // Opcjonalnie: jeśli Twoja lista armii ma być schowana pod wyborem:
+            YourArmyList.Visibility = Visibility.Collapsed;
         }
     }
 }
