@@ -70,20 +70,15 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="1"
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
                    Text="Warhammer 40k Army Maker"
                    Foreground="White"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="30"
-                   FontWeight="Bold"/>
+                   FontWeight="Bold" />
 
-        <!--<TextBlock Grid.Row="1" Grid.Column="0" Text="List of Units"
-                   Foreground="White"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="24"/>-->
-        
         <TextBlock Grid.Row="1" Grid.Column="1"
            Text="Your Army"
            Foreground="White"
@@ -182,40 +177,52 @@
                                 <!--3rd column-->
                                 <StackPanel Grid.Column="2"
                                             VerticalAlignment="Center">
-                                    <Button FontSize="36"
-                                            FontWeight="Bold"
-                                            Width="50"
+                                    <Button Width="50"
                                             Height="50"
-                                            Background="White"
-                                            BorderBrush="#CCCCCC"
-                                            BorderThickness="1"
-                                            Margin="0,0,0,5"
-                                            Padding="0,0,0,5"
-                                            VerticalContentAlignment="Center"
-                                            HorizontalContentAlignment="Center"
-                                            Click="AddUnit_Click">
-                                        <Button.Resources>
-                                            <Style TargetType="Border">
-                                                <Setter Property="CornerRadius"
-                                                        Value="5" />
+                                            Background="#e74c3c"
+                                            Foreground="White"
+                                            FontWeight="Bold"
+                                            FontSize="20"
+                                            Click="RemoveUnit_Click">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Visibility"
+                                                        Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Name}"
+                                                                 Value="{x:Null}">
+                                                        <Setter Property="Visibility"
+                                                                Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
                                             </Style>
-                                        </Button.Resources>
-                                        <TextBlock Text="+"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center" />
+                                        </Button.Style>
+                                        <TextBlock Text="—"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
                                     </Button>
-                                    <!--dodaje tło do punktów-->
-                                    <Border Grid.Column="2"
-                                            Background="#4A708B"
+
+                                    <Border Background="#4A708B"
                                             CornerRadius="4"
                                             Padding="8,4"
-                                            VerticalAlignment="Center">
-                                        <!--Binding łączy dane z tym co zostanie wysłane w pliku cs, w tym przypadku z właściwością Points-->
-                                        <!--StringFormat użyłem żeby dodać na końcu pkt, dodatkowy nawias potrzebny żeby działało poprawnie-->
+                                            Margin="0,5,0,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Visibility"
+                                                        Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Name}"
+                                                                 Value="{x:Null}">
+                                                        <Setter Property="Visibility"
+                                                                Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
                                         <TextBlock Text="{Binding Points, StringFormat='{}{0} pkt'}"
-                                                   HorizontalAlignment="Center"
                                                    Foreground="White"
-                                                   FontWeight="Bold" />
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Center" />
                                     </Border>
                                 </StackPanel>
                             </Grid>

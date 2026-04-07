@@ -81,7 +81,7 @@ namespace CRUD_App
             foreach (var categoryName in _categoryWeights.Keys) {
                 _myArmyUnits.Add(new Unit {
                     Category = categoryName,
-                    Name = null, // To jest kluczowe – po tym rozpoznamy "ducha"
+                    Name = null,
                     Points = 0
                 });
             }
@@ -100,7 +100,7 @@ namespace CRUD_App
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
             BackButton.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Collapsed;
-            YourArmyList.Visibility = Visibility.Visible; // Przywracamy listę armii
+            YourArmyList.Visibility = Visibility.Visible;
         }
 
         private void AddUnit_Click(object sender, RoutedEventArgs e) {
@@ -117,18 +117,21 @@ namespace CRUD_App
             var button = sender as Button;
             if (button?.Tag == null) return;
 
-            // 1. Pobieramy kategorię z taga (np. "Characters")
             _selectedCategory = button.Tag.ToString();
 
-            // 2. Odświeżamy widok wszystkich jednostek (zadziała filtr)
             _view.Refresh();
-
-            // 3. Zarządzamy widocznością (to co robiły stare metody)
             BackButton.Visibility = Visibility.Visible;
             UnitSelectionView.Visibility = Visibility.Visible;
-
-            // Opcjonalnie: jeśli Twoja lista armii ma być schowana pod wyborem:
             YourArmyList.Visibility = Visibility.Collapsed;
+        }
+
+        private void RemoveUnit_Click(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+            var unitToRemove = button?.DataContext as Unit;
+
+            if (unitToRemove != null) {
+                _myArmyUnits.Remove(unitToRemove);
+            }
         }
     }
 }
