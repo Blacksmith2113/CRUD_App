@@ -97,45 +97,6 @@ namespace CRUD_App
             this.Close();
         }
 
-        private void ShowCharacters_Click(object sender, RoutedEventArgs e) {
-            _selectedCategory = "Characters";
-
-            _view.Refresh();
-
-
-            BackButton.Visibility = Visibility.Visible;
-            //CategoryView.Visibility = Visibility.Collapsed;
-            UnitSelectionView.Visibility = Visibility.Visible;
-        }
-
-        private void ShowBattleline_Click(object sender, RoutedEventArgs e) {
-            _selectedCategory = "Battleline";
-
-            _view.Refresh();
-
-            BackButton.Visibility = Visibility.Visible;
-            //CategoryView.Visibility = Visibility.Collapsed;
-            UnitSelectionView.Visibility = Visibility.Visible;
-        }
-        private void ShowTransport_Click(object sender, RoutedEventArgs e) {
-            _selectedCategory = "Dedicated Transport";
-
-            _view.Refresh();
-
-            BackButton.Visibility = Visibility.Visible;
-            //CategoryView.Visibility = Visibility.Collapsed;
-            UnitSelectionView.Visibility = Visibility.Visible;
-        }
-        private void ShowOther_Click(object sender, RoutedEventArgs e) {
-            _selectedCategory = "Other Datasheets";
-
-            _view.Refresh();
-
-            BackButton.Visibility = Visibility.Visible;
-            //CategoryView.Visibility = Visibility.Collapsed;
-            UnitSelectionView.Visibility = Visibility.Visible;
-        }
-
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
             BackButton.Visibility = Visibility.Collapsed;
             UnitSelectionView.Visibility = Visibility.Collapsed;
