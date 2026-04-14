@@ -89,5 +89,8 @@ namespace CRUD_App {
                 Detachment.ItemsSource = null;
             }
         }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            e.Cancel = true;
+        }
     }
 }

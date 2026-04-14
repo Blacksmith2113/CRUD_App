@@ -9,7 +9,8 @@
         Height="800"
         Width="1000"
         Background="#121212"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Window.Resources>
         <Style x:Key="CategoryStyle"
                TargetType="Button">
