@@ -5,18 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CRUD_App"
         mc:Ignorable="d"
-        Title="Warhammer 40k Army Maker" Height="800" Width="1000" Background="#121212" 
+        Title="Warhammer 40k Army Maker"
+        Height="800"
+        Width="1000"
+        Background="#121212"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style x:Key="CategoryStyle" TargetType="Button">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Width" Value="40"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="Background" Value="#4A708B"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="0,0,0,5" />
-            <Setter Property="Padding" Value="0,0,0,5" />
+        <Style x:Key="CategoryStyle"
+               TargetType="Button">
+            <Setter Property="HorizontalAlignment"
+                    Value="Right" />
+            <Setter Property="Width"
+                    Value="40" />
+            <Setter Property="Height"
+                    Value="40" />
+            <Setter Property="FontSize"
+                    Value="30" />
+            <Setter Property="Background"
+                    Value="#4A708B" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="Margin"
+                    Value="0,0,0,5" />
+            <Setter Property="Padding"
+                    Value="0,0,0,5" />
         </Style>
         <Style x:Key="BackButtonStyle"
                TargetType="Button">
@@ -59,15 +71,15 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.15*"/>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.15*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.3*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -79,18 +91,33 @@
                    FontSize="30"
                    FontWeight="Bold" />
 
-        <TextBlock Grid.Row="1" Grid.Column="1"
-           Name="YourArmy"
-           Foreground="White"
-           VerticalAlignment="Center"
-           HorizontalAlignment="Center"
-           FontSize="24"/>
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   Name="YourArmy"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="24" />
 
-        <Button Grid.Column="0" Grid.Row="2" Name="BackButton" Visibility="Collapsed"
+        <Button Grid.Column="0"
+                Grid.Row="2"
+                Name="BackButton"
+                Visibility="Collapsed"
                 Style="{StaticResource BackButtonStyle}"
                 Content="←"
                 HorizontalAlignment="Right"
                 Click="BackToCategories_Click" />
+
+        <Button Grid.Column="0"
+                Grid.Row="1"
+                Name="EditRosterButton"
+                Style="{StaticResource BackButtonStyle}"
+                Content="⚙"
+                HorizontalAlignment="Left"
+                Click="EditRoster_Click"
+                Height="50"
+                Margin="190,10,0,0"
+                VerticalAlignment="Top" />
 
         <Grid Grid.Row="2"
               Grid.Column="1"
@@ -336,8 +363,12 @@
 
             </Grid>
         </Grid>
-        <Button Grid.Row="3" Grid.Column="1" Content="Close" 
-                Height="60" Width="200" Background="#FFB300" 
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Content="Close"
+                Height="60"
+                Width="200"
+                Background="#FFB300"
                 Click="Button_Click"></Button>
     </Grid>
 </Window>

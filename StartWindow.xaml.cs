@@ -62,9 +62,9 @@ namespace CRUD_App {
                 return;
             }
 
-            MainWindow main = new MainWindow(armyName);
+            MainWindow main = new MainWindow(armyName, this);
             main.Show();
-            Close();
+            Hide();
         }
 
         private void Faction_SelectionChanged(object sender, RoutedEventArgs e) {

@@ -21,10 +21,12 @@ namespace CRUD_App
         private ObservableCollection<Unit> _myArmyUnits;
         private ListCollectionView _armyView;
         private string _armyName;
+        private Window _parentWindow;
 
-        public MainWindow(string armyName)
+        public MainWindow(string armyName, Window parent)
         {
             InitializeComponent();
+            _parentWindow = parent;
 
             _armyName = armyName;
             YourArmy.Text = _armyName;
@@ -136,6 +138,11 @@ namespace CRUD_App
             if (unitToRemove != null) {
                 _myArmyUnits.Remove(unitToRemove);
             }
+        }
+
+        private void EditRoster_Click(object sender, RoutedEventArgs e) {
+            _parentWindow.Show();
+            Hide();
         }
     }
 }
