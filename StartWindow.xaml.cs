@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 namespace CRUD_App {
     public partial class StartWindow : Window {
+        private MainWindow _existingMainWindow;
         public List<string> Factions { get; set; } = new List<string> {
             "World Eaters",
             "Space Marines",
@@ -37,6 +38,11 @@ namespace CRUD_App {
             string armyName = armyNameTbox.Text.Trim();
             var selectedFaction = Faction.SelectedItem as string;
             var selectedDetachment = Detachment.SelectedItem as string;
+            int selectedBattlesize = 0;
+            if (Battlesize1.IsChecked == true) selectedBattlesize = 1000;
+            else if (Battlesize2.IsChecked == true) selectedBattlesize = 2000;
+            else if (Battlesize3.IsChecked == true) selectedBattlesize = 3000;
+
 
             if (armyNameTbox.Text == null || armyName == "") {
                 MessageBox.Show("The Army Name cannot be empty!", 
@@ -61,9 +67,13 @@ namespace CRUD_App {
                     MessageBoxImage.Warning);
                 return;
             }
+            if(_existingMainWindow == null) {
+                _existingMainWindow = new MainWindow(armyName, selectedBattlesize, this);
+            }
 
-            MainWindow main = new MainWindow(armyName, this);
-            main.Show();
+            _existingMainWindow.YourArmy.Text = armyName;
+
+            _existingMainWindow.Show();
             Hide();
         }
 

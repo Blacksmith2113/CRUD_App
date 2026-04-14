@@ -23,7 +23,7 @@ namespace CRUD_App
         private string _armyName;
         private Window _parentWindow;
 
-        public MainWindow(string armyName, Window parent)
+        public MainWindow(string armyName, int MaximumPoints, Window parent)
         {
             InitializeComponent();
             _parentWindow = parent;
@@ -100,7 +100,7 @@ namespace CRUD_App
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            this.Close();
+            Application.Current.Shutdown();
         }
 
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
@@ -123,7 +123,7 @@ namespace CRUD_App
             var button = sender as Button;
             if (button?.Tag == null) return;
 
-            _selectedCategory = button.Tag.ToString();
+            _selectedCategory = button.Tag as string;
 
             _view.Refresh();
             BackButton.Visibility = Visibility.Visible;

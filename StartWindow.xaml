@@ -97,7 +97,7 @@
                        FontSize="24"
                        FontWeight="Bold"
                        Margin="10"/>
-            <Grid>
+            <Grid Name="Points">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -105,14 +105,20 @@
                 </Grid.ColumnDefinitions>
                 
                 <RadioButton Grid.Column="0" 
+                             Name="Battlesize1"
                              Content="Incurison 1000pts"
+                             Tag="1000"
                              GroupName="Battlesize"
                              IsChecked="True" />
                 <RadioButton Grid.Column="1"
+                             Name="Battlesize2"
                              Content="Strike Force 2000pts"
+                             Tag="2000"
                              GroupName="Battlesize" />
                 <RadioButton Grid.Column="2"
+                             Name="Battlesize3"
                              Content="Onslaught 3000pts"
+                             Tag="3000"
                              GroupName="Battlesize" />
             </Grid>
             
