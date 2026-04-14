@@ -1,0 +1,129 @@
+﻿<Window x:Class="CRUD_App.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CRUD_App"
+        mc:Ignorable="d"
+        Title="Warhammmer 40k Army Maker" Height="Auto" Width="Auto" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
+        Background="#121212">
+    <Window.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="BackgroundBorder"
+                                Background="#333"
+                                CornerRadius="5"
+                                Padding="10"
+                                Margin="5"
+                                BorderBrush="Gray"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#444" />
+                            </Trigger>
+                            <Trigger Property="IsChecked"
+                                     Value="True">
+                                <Setter TargetName="BackgroundBorder"
+                                        Property="Background"
+                                        Value="Gold" />
+                                <Setter TargetName="BackgroundBorder"
+                                        Property="BorderBrush"
+                                        Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsChecked"
+                                     Value="False">
+                                <Setter Property="Foreground"
+                                        Value="White" />
+                            </Trigger>                           
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <TextBlock Text="Name your Army: "
+                       Foreground="White"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="10"/>
+            <TextBox Name="armyNameTbox"
+                     FontSize="24"
+                     VerticalContentAlignment="Center" 
+                     Margin="10"/>
+
+            <TextBlock Text="Select your Faction: " 
+                       Foreground="White"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="10"/>
+            <ListBox ItemsSource="{Binding Factions}"
+                     Name="Faction"
+                     Height="65"
+                     Margin="10"
+                     SelectionChanged="Faction_SelectionChanged"/>
+
+            <TextBlock Text="Select Detachment: "
+                       Foreground="White"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="10" />
+            
+            <ListBox ItemsSource="{Binding Detachment}"
+                     Name="Detachment"
+                     Height="65"
+                     Margin="10"/>
+            
+            <TextBlock Text="Select battlesize: "
+                       Foreground="White"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="10"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <RadioButton Grid.Column="0" 
+                             Content="Incurison 1000pts"
+                             GroupName="Battlesize"
+                             IsChecked="True" />
+                <RadioButton Grid.Column="1"
+                             Content="Strike Force 2000pts"
+                             GroupName="Battlesize" />
+                <RadioButton Grid.Column="2"
+                             Content="Onslaught 3000pts"
+                             GroupName="Battlesize" />
+            </Grid>
+            
+
+            <Button Content="Create Army"
+                    Height="60"
+                    Width="200"
+                    Background="#FFB300"
+                    Margin="10"
+                    Click="CreateArmy" />
+        </StackPanel>                    
+        
+    </Grid>
+</Window>

@@ -80,7 +80,7 @@
                    FontWeight="Bold" />
 
         <TextBlock Grid.Row="1" Grid.Column="1"
-           Text="Your Army"
+           Name="YourArmy"
            Foreground="White"
            VerticalAlignment="Center"
            HorizontalAlignment="Center"
@@ -131,6 +131,15 @@
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment"
                                 Value="Stretch" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Name}"
+                                         Value="{x:Null}">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Setter Property="IsEnabled"
+                                        Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
@@ -145,14 +154,6 @@
                                             Value="White" />
                                     <Setter Property="Visibility"
                                             Value="Visible" />
-
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Name}"
-                                                     Value="{x:Null}">
-                                            <Setter Property="Visibility"
-                                                    Value="Collapsed" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
                                 </Style>
                             </Border.Style>
                             <Grid>

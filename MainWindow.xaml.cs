@@ -20,10 +20,14 @@ namespace CRUD_App
         private string _selectedCategory;
         private ObservableCollection<Unit> _myArmyUnits;
         private ListCollectionView _armyView;
+        private string _armyName;
 
-        public MainWindow()
+        public MainWindow(string armyName)
         {
             InitializeComponent();
+
+            _armyName = armyName;
+            YourArmy.Text = _armyName;
 
             _allUnits= new List<Unit>();
 
