@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:CRUD_App"
         mc:Ignorable="d"
         Title="Warhammmer 40k Army Maker" Height="Auto" Width="Auto" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
-        Background="#121212"
-        Closing="Window_Closing">
+        Background="#121212">
     <Window.Resources>
         <Style TargetType="RadioButton">
             <Setter Property="Template">

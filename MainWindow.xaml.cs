@@ -17,47 +17,41 @@ namespace CRUD_App
             };
         private List<Unit> _allUnits;
         private ListCollectionView _view;
-        private string _selectedCategory;
+        private string? _selectedCategory;
         private ObservableCollection<Unit> _myArmyUnits;
         private ListCollectionView _armyView;
-        private string _armyName;
-        private Window _parentWindow;
 
-        public MainWindow(string armyName, int MaximumPoints, Window parent)
+        public MainWindow()
         {
             InitializeComponent();
-            _parentWindow = parent;
-
-            _armyName = armyName;
-            YourArmy.Text = _armyName;
 
             _allUnits= new List<Unit>();
 
             _allUnits.Add(new Unit {
                 Name = "Eightbound",
                 Points = 135,
-                Image = "/Eightbound.jpg",
+                Image = "/Images/Eightbound.jpg",
                 Category = "Other Datasheets"
             });
 
             _allUnits.Add(new Unit {
                 Name = "Angron",
                 Points = 365,
-                Image = "/Angron.jpg",
+                Image = "/Images/Angron.jpg",
                 Category = "Characters"
             });
 
             _allUnits.Add(new Unit {
                 Name = "Chaos Rhino",
                 Points = 85,
-                Image = "/Rhino.jpg",
+                Image = "/Images/Rhino.jpg",
                 Category = "Dedicated Transport"
             });
 
             _allUnits.Add(new Unit {
                 Name = "Khorne Berzerkers",
                 Points = 180,
-                Image = "/Berzerkers.jpg",
+                Image = "/Images/Berzerkers.jpg",
                 Category = "Battleline"
             });
 
@@ -141,8 +135,6 @@ namespace CRUD_App
         }
 
         private void EditRoster_Click(object sender, RoutedEventArgs e) {
-            _parentWindow.Show();
-            Hide();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             e.Cancel = true;

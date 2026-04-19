@@ -68,7 +68,7 @@ namespace CRUD_App {
                 return;
             }
             if(_existingMainWindow == null) {
-                _existingMainWindow = new MainWindow(armyName, selectedBattlesize, this);
+                _existingMainWindow = new MainWindow();
             }
 
             _existingMainWindow.YourArmy.Text = armyName;
