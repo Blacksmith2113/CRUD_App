@@ -15,46 +15,42 @@ namespace CRUD_App
                 {"Other Datasheets", 4 },
                 {"Allied Units", 5 }
             };
-        private List<Unit> _allUnits;
-        private ListCollectionView _view;
-        private string _selectedCategory;
+        private ObservableCollection<Unit> _allUnitsList;
+        private ListCollectionView _viewAllUnits;
+
+
+        private string? _selectedCategory;
         private ObservableCollection<Unit> _myArmyUnits;
         private ListCollectionView _armyView;
-        private string _armyName;
-        private Window _parentWindow;
 
-        public MainWindow(string armyName, int MaximumPoints, Window parent)
+        public MainWindow()
         {
             InitializeComponent();
-            _parentWindow = parent;
 
-            _armyName = armyName;
-            YourArmy.Text = _armyName;
+            _allUnitsList= new ObservableCollection<Unit>();
 
-            _allUnits= new List<Unit>();
-
-            _allUnits.Add(new Unit {
+            _allUnitsList.Add(new Unit {
                 Name = "Eightbound",
                 Points = 135,
                 Image = "/Eightbound.jpg",
                 Category = "Other Datasheets"
             });
 
-            _allUnits.Add(new Unit {
+            _allUnitsList.Add(new Unit {
                 Name = "Angron",
                 Points = 365,
                 Image = "/Angron.jpg",
                 Category = "Characters"
             });
 
-            _allUnits.Add(new Unit {
+            _allUnitsList.Add(new Unit {
                 Name = "Chaos Rhino",
                 Points = 85,
                 Image = "/Rhino.jpg",
                 Category = "Dedicated Transport"
             });
 
-            _allUnits.Add(new Unit {
+            _allUnitsList.Add(new Unit {
                 Name = "Khorne Berzerkers",
                 Points = 180,
                 Image = "/Berzerkers.jpg",
@@ -62,26 +58,24 @@ namespace CRUD_App
             });
 
             
-            _view = (ListCollectionView)CollectionViewSource.GetDefaultView(_allUnits);
+            _viewAllUnits = (ListCollectionView)CollectionViewSource.GetDefaultView(_allUnitsList);
 
-            _view.GroupDescriptions.Clear();
-            _view.SortDescriptions.Clear();
+            _viewAllUnits.GroupDescriptions.Clear();
+            _viewAllUnits.SortDescriptions.Clear();
 
-            _view.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
+            _viewAllUnits.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
 
             var categorySorter = new CategoryComparer(_categoryWeights);
 
-            _view.CustomSort = categorySorter;
+            _viewAllUnits.CustomSort = categorySorter;
 
-            _view.Filter = (obj) => {
-                var unit = obj as Unit;
-                if (string.IsNullOrEmpty(_selectedCategory)) return true;
-                return unit?.Category == _selectedCategory;
-            };
+            //_view.Filter = (obj) => {
+            //    var unit = obj as Unit;
+            //    if (string.IsNullOrEmpty(_selectedCategory)) return true;
+            //    return unit?.Category == _selectedCategory;
+            //};
 
-            _view.Refresh();
-
-            UnitList.ItemsSource = _view;
+            dbList.ItemsSource = _viewAllUnits;
 
             _myArmyUnits = new ObservableCollection<Unit>();
             foreach (var categoryName in _categoryWeights.Keys) {
@@ -92,11 +86,9 @@ namespace CRUD_App
                 });
             }
             _armyView = (ListCollectionView)CollectionViewSource.GetDefaultView(_myArmyUnits);
-            YourArmyList.ItemsSource = _myArmyUnits;
+            //YourArmyList.ItemsSource = _myArmyUnits;
 
             _armyView.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
-
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
@@ -105,8 +97,8 @@ namespace CRUD_App
 
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
             BackButton.Visibility = Visibility.Collapsed;
-            UnitSelectionView.Visibility = Visibility.Collapsed;
-            YourArmyList.Visibility = Visibility.Visible;
+        //UnitList.Visibility = Visibility.Collapsed;
+            //YourArmyList.Visibility = Visibility.Visible;
         }
 
         private void AddUnit_Click(object sender, RoutedEventArgs e) {
@@ -125,10 +117,10 @@ namespace CRUD_App
 
             _selectedCategory = button.Tag as string;
 
-            _view.Refresh();
+            _viewAllUnits.Refresh();
             BackButton.Visibility = Visibility.Visible;
-            UnitSelectionView.Visibility = Visibility.Visible;
-            YourArmyList.Visibility = Visibility.Collapsed;
+            //UnitList.Visibility = Visibility.Visible;
+            //YourArmyList.Visibility = Visibility.Collapsed;
         }
 
         private void RemoveUnit_Click(object sender, RoutedEventArgs e) {
@@ -141,11 +133,6 @@ namespace CRUD_App
         }
 
         private void EditRoster_Click(object sender, RoutedEventArgs e) {
-            _parentWindow.Show();
-            Hide();
-        }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            e.Cancel = true;
         }
     }
 }
