@@ -128,11 +128,27 @@ namespace CRUD_App
             var unitToRemove = button?.DataContext as Unit;
 
             if (unitToRemove != null) {
-                _myArmyUnits.Remove(unitToRemove);
+                _allUnitsList.Remove(unitToRemove);
             }
         }
 
-        private void EditRoster_Click(object sender, RoutedEventArgs e) {
+        private void EditUnit_Click(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+            var unitToEdit = button?.DataContext as Unit;
+
+            if (unitToEdit != null) {
+
+            }
+        }
+
+        private void NewUnit_Click(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+            if (button?.Tag == null) return;
+
+            _selectedCategory = button.Tag as string;
+
+            AddUnit addUnit = new AddUnit(_selectedCategory, _allUnitsList);
+            addUnit.ShowDialog();
         }
     }
 }

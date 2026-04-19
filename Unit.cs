@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CRUD_App {
-    internal class Unit {
+    public class Unit {
+        public int Id { get; set; }
         public string? Name { get; set; }
         public int Points { get; set; }
         public string? Image { get; set; }
