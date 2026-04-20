@@ -21,10 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Angron.jpg" />
-    <Resource Include="Berzerkers.jpg" />
-    <Resource Include="Eightbound.jpg" />
-    <Resource Include="Rhino.jpg" />
+    <Resource Include="Images\Angron.jpg" />
+    <Resource Include="Images\Berzerkers.jpg" />
+    <Resource Include="Images\Eightbound.jpg" />
+    <Resource Include="Images\Rhino.jpg" />
   </ItemGroup>
 
 </Project>

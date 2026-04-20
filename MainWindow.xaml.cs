@@ -29,31 +29,42 @@ namespace CRUD_App
 
             _allUnitsList= new ObservableCollection<Unit>();
 
+            foreach (var categoryName in _categoryWeights.Keys) {
+                if (categoryName == "Allied Units") {
+                    continue;
+                }
+                _allUnitsList.Add(new Unit {
+                    Category = categoryName,
+                    Name = null,
+                    Points = 0
+                });
+            }
+
             _allUnitsList.Add(new Unit {
                 Name = "Eightbound",
                 Points = 135,
-                Image = "/Eightbound.jpg",
+                Image = "/Images/Eightbound.jpg",
                 Category = "Other Datasheets"
             });
 
             _allUnitsList.Add(new Unit {
                 Name = "Angron",
                 Points = 365,
-                Image = "/Angron.jpg",
+                Image = "/Images/Angron.jpg",
                 Category = "Characters"
             });
 
             _allUnitsList.Add(new Unit {
                 Name = "Chaos Rhino",
                 Points = 85,
-                Image = "/Rhino.jpg",
+                Image = "/Images/Rhino.jpg",
                 Category = "Dedicated Transport"
             });
 
             _allUnitsList.Add(new Unit {
                 Name = "Khorne Berzerkers",
                 Points = 180,
-                Image = "/Berzerkers.jpg",
+                Image = "/Images/Berzerkers.jpg",
                 Category = "Battleline"
             });
 
@@ -76,19 +87,6 @@ namespace CRUD_App
             //};
 
             dbList.ItemsSource = _viewAllUnits;
-
-            _myArmyUnits = new ObservableCollection<Unit>();
-            foreach (var categoryName in _categoryWeights.Keys) {
-                _myArmyUnits.Add(new Unit {
-                    Category = categoryName,
-                    Name = null,
-                    Points = 0
-                });
-            }
-            _armyView = (ListCollectionView)CollectionViewSource.GetDefaultView(_myArmyUnits);
-            //YourArmyList.ItemsSource = _myArmyUnits;
-
-            _armyView.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
@@ -97,8 +95,6 @@ namespace CRUD_App
 
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
             BackButton.Visibility = Visibility.Collapsed;
-        //UnitList.Visibility = Visibility.Collapsed;
-            //YourArmyList.Visibility = Visibility.Visible;
         }
 
         private void AddUnit_Click(object sender, RoutedEventArgs e) {
@@ -119,8 +115,6 @@ namespace CRUD_App
 
             _viewAllUnits.Refresh();
             BackButton.Visibility = Visibility.Visible;
-            //UnitList.Visibility = Visibility.Visible;
-            //YourArmyList.Visibility = Visibility.Collapsed;
         }
 
         private void RemoveUnit_Click(object sender, RoutedEventArgs e) {
@@ -137,7 +131,9 @@ namespace CRUD_App
             var unitToEdit = button?.DataContext as Unit;
 
             if (unitToEdit != null) {
-
+                EditUnit editUnit = new EditUnit(unitToEdit);
+                editUnit.ShowDialog();
+                _viewAllUnits.Refresh();
             }
         }
 
@@ -149,6 +145,7 @@ namespace CRUD_App
 
             AddUnit addUnit = new AddUnit(_selectedCategory, _allUnitsList);
             addUnit.ShowDialog();
+            _viewAllUnits.Refresh();
         }
     }
 }
