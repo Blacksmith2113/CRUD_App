@@ -67,8 +67,26 @@ namespace CRUD_App {
             return isCreated;
         }
         public ObservableCollection<Unit> ReadAll() {
-            ObservableCollection<Unit> Units = new ObservableCollection<Unit>();
-            return Units;
+            ObservableCollection<Unit> units = new ObservableCollection<Unit>();
+            SqliteConnection dbConnection = new SqliteConnection(_connectionString);
+            dbConnection.Open();
+            if (dbConnection.State == ConnectionState.Open) {
+                string Query = "SELECT * FROM Units";
+                SqliteCommand dbCommand = new SqliteCommand(Query, dbConnection);
+                SqliteDataReader dataReader = dbCommand.ExecuteReader();
+                while (dataReader.Read()) {
+                    Unit unit= new Unit() {
+                        Id = Convert.ToInt32(dataReader["Id"]),
+                        Name = dataReader["Name"].ToString(),
+                        Points = Convert.ToInt32(dataReader["Points"]),
+                        Image = (byte[])dataReader["Image"],
+                        Category = dataReader["Category"].ToString()
+                    };
+                    units.Add(unit);
+                }
+            }
+            dbConnection.Close();
+            return units;
         } 
         public Unit Read(int id) {
             Unit Unit = new Unit();
