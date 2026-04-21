@@ -12,7 +12,7 @@ using Microsoft.Data.Sqlite;
 namespace CRUD_App {
     class UnitRepository : IUnitRepository{
 
-        private static string _dbFilePath = Path.Combine(Environment.CurrentDirectory, "dbPlaces.db");
+        private static string _dbFilePath = Path.Combine(Environment.CurrentDirectory, "dbUnits.db");
         private static string _connectionString = $"Data Source = {_dbFilePath}";
 
         private bool IsDatabaseExist() {
@@ -21,11 +21,11 @@ namespace CRUD_App {
                 SqliteConnection dbConnection = new SqliteConnection(_connectionString);
                 dbConnection.Open();
                 if (dbConnection.State == ConnectionState.Open) {
-                    string dbQuery = "SELECT name FROM sqlite_master WHERE type = 'table' AND name='Places'";
+                    string dbQuery = "SELECT name FROM sqlite_master WHERE type = 'table' AND name='Units'";
                     SqliteCommand dbCommand = new SqliteCommand(dbQuery, dbConnection);
                     object? resultObj = dbCommand.ExecuteScalar();
                     string? result = resultObj as string;
-                    if (result == "Places") {
+                    if (result == "Units") {
                         isDatabaseExist = true;
                     }
                 }
@@ -39,12 +39,11 @@ namespace CRUD_App {
             dbConnection.Open();
 
             if (dbConnection.State == ConnectionState.Open) {
-                string dbQuery = "CREATE TABLE Places(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Country TEXT, Description TEXT, Image BLOB)";
+                string dbQuery = "CREATE TABLE Units(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Points INTEGER, Image BLOB, Category TEXT)";
                 SqliteCommand dbCommand = new SqliteCommand(dbQuery, dbConnection);
                 dbCommand.ExecuteNonQuery();
             }
             dbConnection.Close();
-
         }
 
         public UnitRepository() {
@@ -53,7 +52,19 @@ namespace CRUD_App {
             }
         }
         public bool Create(Unit e) {
-            return true;
+            bool isCreated = false;
+            SqliteConnection dbConnection = new SqliteConnection(_connectionString);
+            dbConnection.Open();
+            if (dbConnection.State == ConnectionState.Open) {
+                string Query = $"INSERT INTO Units(Name, Points, Image, Category) VALUES('{e.Name}','{e.Points}', @Image, '{e.Category}')";
+                SqliteCommand dbCommand = new SqliteCommand(Query, dbConnection);
+                dbCommand.Parameters.Add("@Image", SqliteType.Blob, e.Image.Length).Value = e.Image;
+                if (dbCommand.ExecuteNonQuery() == 1) {
+                    isCreated = true;
+                }
+            }
+            dbConnection.Close();
+            return isCreated;
         }
         public ObservableCollection<Unit> ReadAll() {
             ObservableCollection<Unit> Units = new ObservableCollection<Unit>();

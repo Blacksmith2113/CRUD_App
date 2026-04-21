@@ -17,11 +17,9 @@ namespace CRUD_App
             };
         private ObservableCollection<Unit> _allUnitsList;
         private ListCollectionView _viewAllUnits;
-
+        private IUnitRepository _unitRepository = new UnitRepository();
 
         private string? _selectedCategory;
-        private ObservableCollection<Unit> _myArmyUnits;
-        private ListCollectionView _armyView;
 
         public MainWindow()
         {
@@ -97,25 +95,25 @@ namespace CRUD_App
             BackButton.Visibility = Visibility.Collapsed;
         }
 
-        private void AddUnit_Click(object sender, RoutedEventArgs e) {
-            var button = sender as Button;
+        //private void AddUnit_Click(object sender, RoutedEventArgs e) {
+        //    var button = sender as Button;
 
-            var selectedUnit = button.DataContext as Unit;
+        //    var selectedUnit = button.DataContext as Unit;
 
-            if (selectedUnit != null) {
-                _myArmyUnits.Add(selectedUnit);
-                _armyView.Refresh();
-            }
-        }
-        private void OpenSelection_Click(object sender, RoutedEventArgs e) {
-            var button = sender as Button;
-            if (button?.Tag == null) return;
+        //    if (selectedUnit != null) {
+        //        _myArmyUnits.Add(selectedUnit);
+        //        _armyView.Refresh();
+        //    }
+        //}
+        //private void OpenSelection_Click(object sender, RoutedEventArgs e) {
+        //    var button = sender as Button;
+        //    if (button?.Tag == null) return;
 
-            _selectedCategory = button.Tag as string;
+        //    _selectedCategory = button.Tag as string;
 
-            _viewAllUnits.Refresh();
-            BackButton.Visibility = Visibility.Visible;
-        }
+        //    _viewAllUnits.Refresh();
+        //    BackButton.Visibility = Visibility.Visible;
+        //}
 
         private void RemoveUnit_Click(object sender, RoutedEventArgs e) {
             var button = sender as Button;
