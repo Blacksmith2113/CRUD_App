@@ -71,7 +71,7 @@ namespace CRUD_App {
                 _existingMainWindow = new MainWindow();
             }
 
-            _existingMainWindow.YourArmy.Text = armyName;
+            //_existingMainWindow.YourArmy.Text = armyName;
 
             _existingMainWindow.Show();
             Hide();
@@ -88,9 +88,6 @@ namespace CRUD_App {
             else {
                 Detachment.ItemsSource = null;
             }
-        }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            e.Cancel = true;
         }
     }
 }
