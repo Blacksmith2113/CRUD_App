@@ -18,14 +18,15 @@ using System.IO;
 
 namespace CRUD_App {
     public partial class AddUnit : Window {
-        private ObservableCollection<Unit> _allUnits; 
         private string? _category;
         private string? _imagePath;
+        IUnitRepository _unitRepository = new UnitRepository();
+        ObservableCollection<Unit> _allUnits;
         public AddUnit(string category, ObservableCollection<Unit> allUnits) {
             InitializeComponent();
+            _allUnits = allUnits;           
             string categoryText = category;
             _category = category;
-            _allUnits = allUnits;
             if(_category == "Characters" || _category == "Other Datasheets") {
                 categoryText = _category.TrimEnd('s');
             }
@@ -51,6 +52,7 @@ namespace CRUD_App {
                 return;
             }
 
+
             Unit unit = new Unit();
             unit.Name = unitName.Text;
             unit.Points = int.Parse(unitPoints.Text);
@@ -59,9 +61,12 @@ namespace CRUD_App {
                 FileStream fileStream = File.Open(_imagePath, FileMode.Open);
                 unit.Image = Utility.ImageToByteArray(fileStream);
             }
-            
-            _allUnits.Add(unit);
-            Close();
+            if (_unitRepository.Create(unit)) {
+                _allUnits.Add(unit);
+                Close();
+            }
+            else
+                MessageBox.Show("Save Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void UploadImage_Click(object sender, RoutedEventArgs e) {

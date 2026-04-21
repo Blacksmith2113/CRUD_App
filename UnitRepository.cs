@@ -89,14 +89,57 @@ namespace CRUD_App {
             return units;
         } 
         public Unit Read(int id) {
-            Unit Unit = new Unit();
-            return Unit;
+            Unit unit = new Unit();
+            SqliteConnection dbConnection = new SqliteConnection(_connectionString);
+            dbConnection.Open();
+            if (dbConnection.State == ConnectionState.Open) {
+                string Query = $"SELECT * FROM Units WHERE Id = {id}";
+                SqliteCommand dbCommand = new SqliteCommand(Query, dbConnection);
+                SqliteDataReader dataReader = dbCommand.ExecuteReader();
+
+                while (dataReader.Read()) {
+
+                    unit = new Unit() {
+                        Id = Convert.ToInt32(dataReader["Id"]),
+                        Name = dataReader["Name"].ToString(),
+                        Points = Convert.ToInt32(dataReader["Points"]),
+                        Image = (byte[])dataReader["Image"],
+                        Category = dataReader["Category"].ToString()
+                    };
+                }
+            }
+            dbConnection.Close();
+            return unit;
         }
         public bool Edit(Unit e) {
-            return true;
+            bool isUpdated = false;
+            SqliteConnection dbConnection = new SqliteConnection(_connectionString);
+            dbConnection.Open();
+            if (dbConnection.State == ConnectionState.Open) {
+                string Query = $"UPDATE Units SET Name = '{e.Name}', Country = '{e.Points}', Category = '{e.Category}', Image = @Image Where Id = {e.Id}";
+                SqliteCommand dbCommand = new SqliteCommand(Query, dbConnection);
+                dbCommand.Parameters.Add("@Image", SqliteType.Blob, e.Image.Length).Value = e.Image;
+                if (dbCommand.ExecuteNonQuery() == 1) {
+                    isUpdated = true;
+                }
+            }
+            dbConnection.Close();
+            return isUpdated;
         }
         public bool Delete(Unit e) {
-            return true;
+            bool isDeleted = false;
+            SqliteConnection dbConnection = new SqliteConnection(_connectionString);
+            dbConnection.Open();
+            if (dbConnection.State == ConnectionState.Open) {
+                string Query = $"DELETE FROM Units WHERE Id={e.Id}";
+                SqliteCommand dbCommand = new SqliteCommand(Query, dbConnection);
+                if (dbCommand.ExecuteNonQuery() == 1) {
+                    isDeleted = true;
+                }
+
+            }
+            dbConnection.Close();
+            return isDeleted;
         }
     }
 }

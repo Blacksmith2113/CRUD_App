@@ -17,14 +17,12 @@ using System.Windows.Shapes;
 
 namespace CRUD_App
 {
-    /// <summary>
-    /// Interaction logic for EditUnit.xaml
-    /// </summary>
     public partial class EditUnit : Window
     {
         private Unit _unitToEdit;
         private byte[] _image;
         private string _imagePath;
+        IUnitRepository _unitRepository = new UnitRepository();
         public EditUnit(Unit unitToEdit)
         {
             InitializeComponent();
@@ -32,9 +30,7 @@ namespace CRUD_App
             unitName.Text = unitToEdit.Name;
             unitPoints.Text = unitToEdit.Points.ToString();
             _image = _unitToEdit.Image;
-            if (unitToEdit.Image != null) {
-                unitImage.Source = Utility.ByteArrayToBitmapImage(_image);
-            }
+            unitImage.Source = Utility.ByteArrayToBitmapImage(_image);
         }
 
         private void CloseEdit_Click(object sender, RoutedEventArgs e) {
@@ -61,7 +57,10 @@ namespace CRUD_App
                 _unitToEdit.Image = Utility.ImageToByteArray(fs);
                 fs.Close();
             }
-            Close();
+            if(_unitRepository.Edit(_unitToEdit))
+                Close();
+            else
+                MessageBox.Show("Błąd zapisu", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void UploadImage_Click(object sender, RoutedEventArgs e) {

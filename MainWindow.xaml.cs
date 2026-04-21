@@ -15,7 +15,7 @@ namespace CRUD_App
                 {"Other Datasheets", 4 },
                 {"Allied Units", 5 }
             };
-        private ObservableCollection<Unit> _allUnitsList;
+        private ObservableCollection<Unit> _allUnitsList = new ObservableCollection<Unit>();
         private ListCollectionView _viewAllUnits;
         private IUnitRepository _unitRepository = new UnitRepository();
 
@@ -25,7 +25,8 @@ namespace CRUD_App
         {
             InitializeComponent();
 
-            _allUnitsList= new ObservableCollection<Unit>();
+            _allUnitsList = _unitRepository.ReadAll();
+
 
             foreach (var categoryName in _categoryWeights.Keys) {
                 if (categoryName == "Allied Units") {
@@ -87,8 +88,8 @@ namespace CRUD_App
             dbList.ItemsSource = _viewAllUnits;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
-            Application.Current.Shutdown();
+        private void Close_Click(object sender, RoutedEventArgs e) {
+            Close();
         }
 
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
@@ -119,8 +120,9 @@ namespace CRUD_App
             var button = sender as Button;
             var unitToRemove = button?.DataContext as Unit;
 
-            if (unitToRemove != null) {
+            if (MessageBox.Show("Are you sure you want to delete this unit?", "Attention", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
                 _allUnitsList.Remove(unitToRemove);
+                _unitRepository.Delete(unitToRemove);
             }
         }
 
@@ -135,7 +137,7 @@ namespace CRUD_App
             }
         }
 
-        private void NewUnit_Click(object sender, RoutedEventArgs e) {
+        private void AddUnit_Click(object sender, RoutedEventArgs e) {
             var button = sender as Button;
             if (button?.Tag == null) return;
 
