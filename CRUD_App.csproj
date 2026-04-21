@@ -18,6 +18,7 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="5.3.1" />
     <PackageReference Include="MaterialDesignThemes" Version="5.3.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.6" />
   </ItemGroup>
 
   <ItemGroup>

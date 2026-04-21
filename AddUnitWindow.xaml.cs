@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
+using System.IO;
 
 namespace CRUD_App {
     public partial class AddUnit : Window {
@@ -49,16 +50,17 @@ namespace CRUD_App {
                 MessageBox.Show("Unit must have a name and point value", "Name or Points not enetered", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            string name = unitName.Text;
-            int points = int.Parse(unitPoints.Text);
 
-            Unit newUnit = new Unit {
-                Name = name,
-                Points = points,
-                Category = _category,
-                Image = _imagePath
-            };
-            _allUnits.Add(newUnit);
+            Unit unit = new Unit();
+            unit.Name = unitName.Text;
+            unit.Points = int.Parse(unitPoints.Text);
+            unit.Category = _category;
+            if (_imagePath != null) {
+                FileStream fileStream = File.Open(_imagePath, FileMode.Open);
+                unit.Image = Utility.ImageToByteArray(fileStream);
+            }
+            
+            _allUnits.Add(unit);
             Close();
         }
 

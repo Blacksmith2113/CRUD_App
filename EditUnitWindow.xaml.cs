@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,16 +23,17 @@ namespace CRUD_App
     public partial class EditUnit : Window
     {
         private Unit _unitToEdit;
-        private string? _imagePath;
+        private byte[] _image;
+        private string _imagePath;
         public EditUnit(Unit unitToEdit)
         {
             InitializeComponent();
             _unitToEdit = unitToEdit;
             unitName.Text = unitToEdit.Name;
             unitPoints.Text = unitToEdit.Points.ToString();
-            _imagePath = _unitToEdit.Image;
+            _image = _unitToEdit.Image;
             if (unitToEdit.Image != null) {
-                unitImage.Source = new BitmapImage(new Uri(unitToEdit.Image.ToString(), UriKind.Relative ));
+                unitImage.Source = Utility.ByteArrayToBitmapImage(_image);
             }
         }
 
@@ -54,7 +56,11 @@ namespace CRUD_App
             }
             _unitToEdit.Name = unitName.Text;
             _unitToEdit.Points = int.Parse(unitPoints.Text);
-            _unitToEdit.Image = _imagePath;
+            if(_imagePath != null) {
+                FileStream fs = File.Open(_imagePath, FileMode.Open);
+                _unitToEdit.Image = Utility.ImageToByteArray(fs);
+                fs.Close();
+            }
             Close();
         }
 

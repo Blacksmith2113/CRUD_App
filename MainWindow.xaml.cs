@@ -40,33 +40,33 @@ namespace CRUD_App
                 });
             }
 
-            _allUnitsList.Add(new Unit {
-                Name = "Eightbound",
-                Points = 135,
-                Image = "/Images/Eightbound.jpg",
-                Category = "Other Datasheets"
-            });
+            //_allUnitsList.Add(new Unit {
+            //    Name = "Eightbound",
+            //    Points = 135,
+            //    Image = "/Images/Eightbound.jpg",
+            //    Category = "Other Datasheets"
+            //});
 
-            _allUnitsList.Add(new Unit {
-                Name = "Angron",
-                Points = 365,
-                Image = "/Images/Angron.jpg",
-                Category = "Characters"
-            });
+            //_allUnitsList.Add(new Unit {
+            //    Name = "Angron",
+            //    Points = 365,
+            //    Image = "/Images/Angron.jpg",
+            //    Category = "Characters"
+            //});
 
-            _allUnitsList.Add(new Unit {
-                Name = "Chaos Rhino",
-                Points = 85,
-                Image = "/Images/Rhino.jpg",
-                Category = "Dedicated Transport"
-            });
+            //_allUnitsList.Add(new Unit {
+            //    Name = "Chaos Rhino",
+            //    Points = 85,
+            //    Image = "/Images/Rhino.jpg",
+            //    Category = "Dedicated Transport"
+            //});
 
-            _allUnitsList.Add(new Unit {
-                Name = "Khorne Berzerkers",
-                Points = 180,
-                Image = "/Images/Berzerkers.jpg",
-                Category = "Battleline"
-            });
+            //_allUnitsList.Add(new Unit {
+            //    Name = "Khorne Berzerkers",
+            //    Points = 180,
+            //    Image = "/Images/Berzerkers.jpg",
+            //    Category = "Battleline"
+            //});
 
             
             _viewAllUnits = (ListCollectionView)CollectionViewSource.GetDefaultView(_allUnitsList);
