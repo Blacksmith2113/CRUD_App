@@ -116,7 +116,7 @@ namespace CRUD_App {
             SqliteConnection dbConnection = new SqliteConnection(_connectionString);
             dbConnection.Open();
             if (dbConnection.State == ConnectionState.Open) {
-                string Query = $"UPDATE Units SET Name = '{e.Name}', Country = '{e.Points}', Category = '{e.Category}', Image = @Image Where Id = {e.Id}";
+                string Query = $"UPDATE Units SET Name = '{e.Name}', Points = '{e.Points}', Category = '{e.Category}', Image = @Image Where Id = {e.Id}";
                 SqliteCommand dbCommand = new SqliteCommand(Query, dbConnection);
                 dbCommand.Parameters.Add("@Image", SqliteType.Blob, e.Image.Length).Value = e.Image;
                 if (dbCommand.ExecuteNonQuery() == 1) {
