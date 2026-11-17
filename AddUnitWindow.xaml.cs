@@ -37,7 +37,7 @@ namespace CRUD_App {
                 MessageBox.Show("Upload an image first!", "Image not uploaded", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if(unitName.Text == "" || unitPoints.Text == "") {
+            if(string.IsNullOrWhiteSpace(unitName.Text) || string.IsNullOrWhiteSpace(unitPoints.Text)) {
                 MessageBox.Show("Unit must have a name and point value", "Name or Points not entered", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
