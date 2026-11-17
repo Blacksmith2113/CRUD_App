@@ -38,35 +38,6 @@ namespace CRUD_App
                     Points = 0
                 });
             }
-
-            //_allUnitsList.Add(new Unit {
-            //    Name = "Eightbound",
-            //    Points = 135,
-            //    Image = "/Images/Eightbound.jpg",
-            //    Category = "Other Datasheets"
-            //});
-
-            //_allUnitsList.Add(new Unit {
-            //    Name = "Angron",
-            //    Points = 365,
-            //    Image = "/Images/Angron.jpg",
-            //    Category = "Characters"
-            //});
-
-            //_allUnitsList.Add(new Unit {
-            //    Name = "Chaos Rhino",
-            //    Points = 85,
-            //    Image = "/Images/Rhino.jpg",
-            //    Category = "Dedicated Transport"
-            //});
-
-            //_allUnitsList.Add(new Unit {
-            //    Name = "Khorne Berzerkers",
-            //    Points = 180,
-            //    Image = "/Images/Berzerkers.jpg",
-            //    Category = "Battleline"
-            //});
-
             
             _viewAllUnits = (ListCollectionView)CollectionViewSource.GetDefaultView(_allUnitsList);
 
@@ -79,12 +50,6 @@ namespace CRUD_App
 
             _viewAllUnits.CustomSort = categorySorter;
 
-            //_view.Filter = (obj) => {
-            //    var unit = obj as Unit;
-            //    if (string.IsNullOrEmpty(_selectedCategory)) return true;
-            //    return unit?.Category == _selectedCategory;
-            //};
-
             dbList.ItemsSource = _viewAllUnits;
         }
 
@@ -95,26 +60,6 @@ namespace CRUD_App
         private void BackToCategories_Click(object sender, RoutedEventArgs e) {
             BackButton.Visibility = Visibility.Collapsed;
         }
-
-        //private void AddUnit_Click(object sender, RoutedEventArgs e) {
-        //    var button = sender as Button;
-
-        //    var selectedUnit = button.DataContext as Unit;
-
-        //    if (selectedUnit != null) {
-        //        _myArmyUnits.Add(selectedUnit);
-        //        _armyView.Refresh();
-        //    }
-        //}
-        //private void OpenSelection_Click(object sender, RoutedEventArgs e) {
-        //    var button = sender as Button;
-        //    if (button?.Tag == null) return;
-
-        //    _selectedCategory = button.Tag as string;
-
-        //    _viewAllUnits.Refresh();
-        //    BackButton.Visibility = Visibility.Visible;
-        //}
 
         private void RemoveUnit_Click(object sender, RoutedEventArgs e) {
             var button = sender as Button;
