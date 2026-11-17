@@ -1,19 +1,9 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CRUD_App
 {
@@ -46,21 +36,34 @@ namespace CRUD_App
                 MessageBox.Show("Upload an image first!", "Image not uploaded", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (unitName.Text == null || unitPoints.Text == null || unitName.Text == "" || unitPoints.Text == "") {
-                MessageBox.Show("Unit must have a name and point value", "Name or Points not enetered", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (string.IsNullOrWhiteSpace(unitName.Text) || string.IsNullOrWhiteSpace(unitPoints.Text)) {
+                MessageBox.Show("Unit must have a name and point value", "Name or Points not entered", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _unitToEdit.Name = unitName.Text;
-            _unitToEdit.Points = int.Parse(unitPoints.Text);
-            if(_imagePath != null) {
-                FileStream fs = File.Open(_imagePath, FileMode.Open);
-                _unitToEdit.Image = Utility.ImageToByteArray(fs);
-                fs.Close();
+            if (!int.TryParse(unitPoints.Text, out int points)) {
+                MessageBox.Show("Points must be a valid number", "Invalid points", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            if(_unitRepository.Edit(_unitToEdit))
+
+            string? oldName = _unitToEdit.Name;
+            int oldPoints = _unitToEdit.Points;
+            byte[]? oldImage = _unitToEdit.Image;
+
+            _unitToEdit.Name = unitName.Text;
+            _unitToEdit.Points = points;
+            if (_imagePath != null) {
+                _unitToEdit.Image = File.ReadAllBytes(_imagePath);
+            }
+
+            if (_unitRepository.Edit(_unitToEdit)) {
                 Close();
-            else
-                MessageBox.Show("Błąd zapisu", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else {
+                _unitToEdit.Name = oldName;
+                _unitToEdit.Points = oldPoints;
+                _unitToEdit.Image = oldImage;
+                MessageBox.Show("Save Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void UploadImage_Click(object sender, RoutedEventArgs e) {
