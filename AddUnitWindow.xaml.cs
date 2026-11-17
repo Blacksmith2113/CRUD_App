@@ -37,14 +37,18 @@ namespace CRUD_App {
                 MessageBox.Show("Upload an image first!", "Image not uploaded", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if(unitName.Text == null || unitPoints.Text == null || unitName.Text == "" || unitPoints.Text == "") {
-                MessageBox.Show("Unit must have a name and point value", "Name or Points not enetered", MessageBoxButton.OK, MessageBoxImage.Error);
+            if(unitName.Text == "" || unitPoints.Text == "") {
+                MessageBox.Show("Unit must have a name and point value", "Name or Points not entered", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if(!int.TryParse(unitPoints.Text, out int points)) {
+                MessageBox.Show("Points must be a valid number", "Invalid points", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             Unit unit = new Unit();
             unit.Name = unitName.Text;
-            unit.Points = int.Parse(unitPoints.Text);
+            unit.Points = points;
             unit.Category = _category;
             if (_imagePath != null) {
                 unit.Image = File.ReadAllBytes(_imagePath);
