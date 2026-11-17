@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Data.Sqlite;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -45,8 +46,15 @@ namespace CRUD_App {
             command.Parameters.AddWithValue("@Points", e.Points);
             command.Parameters.Add("@Image", SqliteType.Blob, e.Image.Length).Value = e.Image;
             command.Parameters.AddWithValue("@Category", e.Category);
-    
-            return command.ExecuteNonQuery() == 1;
+
+            if(command.ExecuteNonQuery() != 1) {
+                return false;
+            }
+
+            using var getId = new SqliteCommand("SELECT last_insert_rowid()", connection);
+            e.Id = Convert.ToInt32(getId.ExecuteScalar());
+            
+            return true;
         }
         public ObservableCollection<Unit> ReadAll() {
             ObservableCollection<Unit> units = new ObservableCollection<Unit>();

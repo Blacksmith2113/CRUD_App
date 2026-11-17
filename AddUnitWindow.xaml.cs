@@ -47,9 +47,7 @@ namespace CRUD_App {
             unit.Points = int.Parse(unitPoints.Text);
             unit.Category = _category;
             if (_imagePath != null) {
-                FileStream fileStream = File.Open(_imagePath, FileMode.Open);
-                unit.Image = Utility.ImageToByteArray(fileStream);
-                fileStream.Close();
+                unit.Image = File.ReadAllBytes(_imagePath);
             }
             if (_unitRepository.Create(unit)) {
                 _allUnits.Add(unit);
