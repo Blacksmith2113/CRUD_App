@@ -71,8 +71,6 @@ namespace CRUD_App {
                 _existingMainWindow = new MainWindow();
             }
 
-            //_existingMainWindow.YourArmy.Text = armyName;
-
             _existingMainWindow.Show();
             Hide();
         }

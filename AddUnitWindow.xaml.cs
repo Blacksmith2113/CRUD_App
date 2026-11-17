@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Text.RegularExpressions;
+﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
-using Microsoft.Win32;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace CRUD_App {
     public partial class AddUnit : Window {
@@ -52,7 +42,6 @@ namespace CRUD_App {
                 return;
             }
 
-
             Unit unit = new Unit();
             unit.Name = unitName.Text;
             unit.Points = int.Parse(unitPoints.Text);
@@ -60,6 +49,7 @@ namespace CRUD_App {
             if (_imagePath != null) {
                 FileStream fileStream = File.Open(_imagePath, FileMode.Open);
                 unit.Image = Utility.ImageToByteArray(fileStream);
+                fileStream.Close();
             }
             if (_unitRepository.Create(unit)) {
                 _allUnits.Add(unit);
