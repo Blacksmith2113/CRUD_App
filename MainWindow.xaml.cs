@@ -65,9 +65,15 @@ namespace CRUD_App
             var button = sender as Button;
             var unitToRemove = button?.DataContext as Unit;
 
+            if (unitToRemove == null) return;
+
             if (MessageBox.Show("Are you sure you want to delete this unit?", "Attention", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
-                _allUnitsList.Remove(unitToRemove);
-                _unitRepository.Delete(unitToRemove);
+                if (_unitRepository.Delete(unitToRemove)) {
+                    _allUnitsList.Remove(unitToRemove);
+                }
+                else {
+                    MessageBox.Show("Could not delete the unit.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
