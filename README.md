@@ -20,7 +20,7 @@ C# · .NET 8 · WPF (XAML) · SQLite (Microsoft.Data.Sqlite) · MaterialDesignIn
 
 ## Getting Started
 ```bash
-https://github.com/Blacksmith2113/Roster-Manager.git
+git clone https://github.com/Blacksmith2113/Roster-Manager.git
 cd Roster-Manager
 dotnet run
 ```
