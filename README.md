@@ -1,6 +1,8 @@
-# ArmyForge
+# Roster Manager
 
-A desktop app for building and managing tabletop army rosters. Create, edit and delete units with a name, point cost, category and image, all stored locally in SQLite.
+A WPF desktop app for managing a catalog of tabletop army units. Create, edit and delete units with a name, point cost, category and image, all stored locally in SQLite.
+
+![Screenshot](docs/screenshot.png)
 
 ## Features
 - Full CRUD on units (add, edit, delete, browse)
@@ -13,7 +15,7 @@ A desktop app for building and managing tabletop army rosters. Create, edit and 
 C# · .NET 8 · WPF (XAML) · SQLite (Microsoft.Data.Sqlite) · MaterialDesignInXAML
 
 ## Architecture
-- `IUnitRepository` / `UnitRepository`: data access layer behind an interface
+- `IUnitRepository` / `UnitRepository`: data access layer behind an interface, using parameterized SQL queries
 - `Unit`: domain model
 - `CategoryComparer`: custom sorting for grouped `ListCollectionView`
 - Window-based UI (`StartWindow`, `MainWindow`, `AddUnitWindow`, `EditUnitWindow`)
