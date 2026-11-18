@@ -2,7 +2,6 @@
 
 A WPF desktop app for managing a catalog of tabletop army units. Create, edit and delete units with a name, point cost, category and image, all stored locally in SQLite.
 
-![Screenshot](docs/screenshot.png)
 
 ## Features
 - Full CRUD on units (add, edit, delete, browse)
