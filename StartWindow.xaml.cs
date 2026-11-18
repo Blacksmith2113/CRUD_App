@@ -69,6 +69,7 @@ namespace CRUD_App {
             }
             if(_existingMainWindow == null) {
                 _existingMainWindow = new MainWindow();
+                _existingMainWindow.Closed += (s, args) => Close();
             }
 
             _existingMainWindow.Show();
