@@ -20,8 +20,8 @@ C# · .NET 8 · WPF (XAML) · SQLite (Microsoft.Data.Sqlite) · MaterialDesignIn
 
 ## Getting Started
 ```bash
-git clone https://github.com/Blacksmith2113/ArmyForge.git
-cd ArmyForge
+https://github.com/Blacksmith2113/Roster-Manager.git
+cd Roster-Manager
 dotnet run
 ```
 Requires Windows and the .NET 8 SDK.
